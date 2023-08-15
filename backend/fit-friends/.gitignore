@@ -37,3 +37,12 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Environments
+*.env
+
+**/uploads/*
+!.gitkeep
+
+db/
+migrations/

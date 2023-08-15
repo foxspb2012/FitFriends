@@ -1,5 +1,5 @@
-export enum UserGenderEnum {
-  Women = "женский",
-  Men = "мужской ",
-  NotImportant = "неважно"
+export enum UserGender {
+  Women = 'Женский',
+  Men = 'Мужской',
+  NotImportant = 'Неважно'
 }
