@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsString, Length, IsISO8601, IsOptional } from 'class-validator';
-import { UserRole, UserGender, UserLocation } from '@fit-friends/shared-types';
+import { IsEmail, IsEnum, IsString, Length, IsISO8601 } from 'class-validator';
+import { UserLocation } from '@fit-friends/shared-types';
 import { AUTH_USER_DATE_BIRTH_NOT_VALID, AUTH_USER_EMAIL_NOT_VALID } from '../auth.constant';
 import { Prop } from '@nestjs/mongoose';
 
@@ -37,30 +37,12 @@ export class CreateUserDto {
     public password: string;
 
     @ApiProperty({
-        description: 'User gender',
-        example: 'Мужской',
-        enum: UserGender,
-        required: false,
-        default: "Неважно"
-    })
-    @IsOptional()
-    @IsEnum(UserGender, {message: 'gender must be Man, Women or NotImportant'})
-    public gender: UserGender;
-
-    @ApiProperty({
         description: 'User birth date',
         example: '1982-02-20',
         required: false,
     })
     @IsISO8601({}, {message: AUTH_USER_DATE_BIRTH_NOT_VALID})
     public dateBirth: string;
-
-    @ApiProperty({
-        description: 'User role',
-        example: 'sportsman'
-    })
-    @IsEnum(UserRole, {message: 'type must be Coach or Sportsman'})
-    public role: UserRole;
 
     @Prop({
         required: false,

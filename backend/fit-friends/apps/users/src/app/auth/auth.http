@@ -8,9 +8,7 @@ Content-Type: application/json
   "email": "alice@inbox.ru",
   "avatar": "ava-path.jpg",
   "password": "123456",
-  "dateBirth": "2023-08-15",
-  "gender": "Мужской",
-  "role": "sportsman",
+  "dateBirth": "2002-08-15",
   "description": "Это тестовое описание при создании пользователя",
   "location": "Петроградская",
   "backgroundImage": "back-my.png"
@@ -30,11 +28,12 @@ Content-Type: application/json
 ###
 
 # Get user by ID
-GET http://localhost:3000/api/auth/64db7fa319bb3ac27d3318b6 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NGRiN2ZhMzE5YmIzYWMyN2QzMzE4YjYiLCJlbWFpbCI6ImFsaWNlQGluYm94LnJ1Iiwicm9sZSI6InNwb3J0c21hbiIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTY5MjExMTIwMSwiZXhwIjoxNjkyMTEyMTAxfQ.O2wzN2Sb-A2gqVstdp_JcHbGY5U_os0bcTOgEvzPfio
+GET http://localhost:3000/api/auth/64dc6fe17b8d9078cecd2239 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NGRiN2ZhMzE5YmIzYWMyN2QzMzE4YjYiLCJlbWFpbCI6ImFsaWNlQGluYm94LnJ1Iiwicm9sZSI6InNwb3J0c21hbiIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTY5MjE2NjcyNCwiZXhwIjoxNjkyMTY3NjI0fQ._91fRjueDWEkGEFJn87NZOOcs0cbj-k6d0yzMTfT9A0
 ###
 
 # Delete user by ID
 DELETE http://localhost:3000/api/auth/64db7fa319bb3ac27d3318b6 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NGRjNmZlMTdiOGQ5MDc4Y2VjZDIyMzkiLCJlbWFpbCI6ImFsaWNlQGluYm94LnJ1Iiwicm9sZSI6InNwb3J0c21hbiIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTY5MjE2ODE4MiwiZXhwIjoxNjkyMTY5MDgyfQ.YFtoNRvg57biIIWIvy1iwgGXS1l-k8Lu5Cy1mZRaEGI
 
 ###

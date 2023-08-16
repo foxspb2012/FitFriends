@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserRdo } from './rdo/user.rdo';
+import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
@@ -23,7 +24,7 @@ export class AuthController {
         description: 'The new user has been successfully created.'
     })
     public async create(@Body() dto: CreateUserDto) {
-
+        console.log(dto);
         const newUser = await this.authService.register(dto);
         return fillObject(UserRdo, newUser);
     }
@@ -31,7 +32,7 @@ export class AuthController {
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @ApiResponse({
-        type: UserRdo,
+        type: LoggedUserRdo,
         status: HttpStatus.OK,
         description: 'User has been successfully logged.'
     })

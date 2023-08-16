@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SiteUserRepository } from '../site-user/site-user.repository';
-import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG, AUTH_USER_BY_ID } from './auth.constant';
+import { AUTH_USER_BY_ID, AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './auth.constant';
 import { SiteUserEntity } from '../site-user/site-user.entity';
-import { User } from '@fit-friends/shared-types';
+import { User, UserGender, UserRole } from '@fit-friends/shared-types';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -17,22 +17,10 @@ export class AuthService {
     }
 
     async register(dto: CreateUserDto) {
-        const {
-            name, email, password, gender, dateBirth, role,
-            description, location, backgroundImage
-        } = dto;
-        const siteUser: User = {
-            name,
-            email,
-            avatar: '',
-            passwordHash: '',
-            gender,
-            dateBirth: dayjs(dateBirth).toDate(),
-            role,
-            description,
-            location,
-            backgroundImage
-        };
+        const { name, email, password, dateBirth,
+            description, location, backgroundImage} = dto;
+        const siteUser: User = { name, email, avatar: '', passwordHash: '', gender: UserGender.NotImportant,
+            dateBirth: dayjs(dateBirth).toDate(), role: UserRole.Sportsman, description, location, backgroundImage};
 
         const existUser = await this.siteUserRepository
             .findByEmail(email);
@@ -41,12 +29,10 @@ export class AuthService {
             throw new UnauthorizedException(AUTH_USER_EXISTS);
         }
 
-        const siteUserEntity = new SiteUserEntity(siteUser);
-        if (!await siteUserEntity.comparePassword(password)) {
-            throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
-        }
+        const userEntity = await new SiteUserEntity(siteUser)
+            .setPassword(password)
 
-        return siteUserEntity.toObject();
+        return this.siteUserRepository.create(userEntity);
     }
 
     async verifyUser(dto: LoginUserDto) {
