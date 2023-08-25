@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Training {
+  id                Int @id @default(autoincrement())
+  title             String
+  backgroundImage   String
+  level             String
+  type              String
+  duration          String
+  price             Decimal  @db.Decimal(8, 0)
+  amountCalories    Int
+  description       String
+  gender            String
+  video             String
+  rating            Int
+  userId            String
+  isSpecial         Boolean
+  feedbacks         Feedback[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("Trainings")
+}
+
+model Feedback {
+  id          Int @id @default(autoincrement())
+  text        String
+  score       Int
+  userId      String
+  training    Training  @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  trainingId  Int
+  createdAt   DateTime  @default(now())
+
+  @@map("Feedbacks")
+}
+
+model Order {
+  id             Int  @id @default(autoincrement())
+  type           String
+  price          Decimal  @db.Decimal(8, 0)
+  count          Int
+  orderAmount    Decimal  @db.Decimal(8, 0)
+  paymentMethod  String
+  trainingId     Int
+  createdAt      DateTime  @default(now())
+
+  @@map("Orders")
+}
+
+model RequestTraining {
+  id           Int @id @default(autoincrement())
+  initiatorId  String
+  userId       String
+  status       Status    @default(OnConsider)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("RequestTrainings")
+}
+
+enum Status {
+  OnConsider
+  Rejected
+  Accept
+}
+
+
